@@ -1,15 +1,33 @@
 package com.galvanize;
+import java.util.HashMap;
 
 public class Application {
 
     public static void main(String[] args) {
-        if (args.length == 2) {
-            System.out.println(args[0] + " <" + args[1] + ">");
-        } else if (args.length ==1) {
-            System.out.println(String.format("Please specify an email for %s", args[0]));
-        } else if (args.length == 0) {
-            System.out.println("Please specify a name and email");
+        HashMap<Character, Integer> numbers = new HashMap<Character, Integer>();
+        numbers.put('M', 1000);
+        numbers.put('D', 500);
+        numbers.put('C', 100);
+        numbers.put('L', 50);
+        numbers.put('X', 10);
+        numbers.put('V', 5);
+        numbers.put('I', 1);
+        int total = 0;
+        String str = args[0];
+        for (int i = 0; i < str.length(); i++) {
+            char letter = str.charAt(i);
+            if (i < str.length() - 1) {
+                char next = str.charAt(i + 1);
+                if (numbers.get(letter) < numbers.get(next)) {
+                    total -= numbers.get(letter);
+                } else {
+                    total += numbers.get(letter);
+                }
+            } else {
+                total += numbers.get(letter);
+            }
         }
+        System.out.println(total);
     }
 
 }
